@@ -21,7 +21,7 @@ import { startWith, map, take, tap, delay } from 'rxjs/operators';
     </li>
   </ul>
   <div class="tab-content">
-    <ng-container > <!-- *ngIf="activeTab && activeTab.bodyComponent" -->
+    <ng-container *ngIf="activeTab && activeTab.bodyComponent"> <!--  -->
       <ng-container *ngTemplateOutlet="activeTab.bodyComponent.bodyContent">
       </ng-container>
     </ng-container>

@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AboutComponent } from './about/about.component';
 import { CourseComponent } from './course/course.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CourseListCardsComponent } from './course-list-cards/course-list-cards.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     AboutComponent,
     CourseComponent,
     NavbarComponent,
+    CourseListCardsComponent,
   ],
   imports: [
     BrowserModule,
