@@ -2,5 +2,170 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "rxjs-practices": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/rxjs-practices",
+      "sourceRoot": "projects/rxjs-practices/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/rxjs-practices",
+            "index": "projects/rxjs-practices/src/index.html",
+            "main": "projects/rxjs-practices/src/main.ts",
+            "polyfills": "projects/rxjs-practices/src/polyfills.ts",
+            "tsConfig": "projects/rxjs-practices/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/rxjs-practices/src/favicon.ico",
+              "projects/rxjs-practices/src/assets"
+            ],
+            "styles": [
+              "projects/rxjs-practices/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/rxjs-practices/src/environments/environment.ts",
+                  "with": "projects/rxjs-practices/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "rxjs-practices:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "rxjs-practices:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "rxjs-practices:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/rxjs-practices/src/test.ts",
+            "polyfills": "projects/rxjs-practices/src/polyfills.ts",
+            "tsConfig": "projects/rxjs-practices/tsconfig.spec.json",
+            "karmaConfig": "projects/rxjs-practices/karma.conf.js",
+            "assets": [
+              "projects/rxjs-practices/src/favicon.ico",
+              "projects/rxjs-practices/src/assets"
+            ],
+            "styles": [
+              "projects/rxjs-practices/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/rxjs-practices/tsconfig.app.json",
+              "projects/rxjs-practices/tsconfig.spec.json",
+              "projects/rxjs-practices/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/rxjs-practices/e2e/protractor.conf.js",
+            "devServerTarget": "rxjs-practices:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rxjs-practices:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "custom-tabs": {
+      "projectType": "library",
+      "root": "projects/custom-tabs",
+      "sourceRoot": "projects/custom-tabs/src",
+      "prefix": "as",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/custom-tabs/tsconfig.lib.json",
+            "project": "projects/custom-tabs/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/custom-tabs/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/custom-tabs/src/test.ts",
+            "tsConfig": "projects/custom-tabs/tsconfig.spec.json",
+            "karmaConfig": "projects/custom-tabs/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/custom-tabs/tsconfig.lib.json",
+              "projects/custom-tabs/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": false
+  },
+  "defaultProject": "rxjs-practices"
 }
