@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { CustomTabsModule } from 'custom-tabs';
+// import { CustomTabsModule } from 'custom-tabs';
+import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
 import { AboutComponent } from './about/about.component';
 import { CourseComponent } from './course/course.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CourseListCardsComponent } from './course-list-cards/course-list-cards.component';
+import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,15 +20,18 @@ import { CourseListCardsComponent } from './course-list-cards/course-list-cards.
     CourseComponent,
     NavbarComponent,
     CourseListCardsComponent,
+    CourseDialogComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
-    CustomTabsModule,
+    ModalModule.forRoot(),
+    // CustomTabsModule,
     AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  entryComponents:[CourseDialogComponent] // ,
+  // schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

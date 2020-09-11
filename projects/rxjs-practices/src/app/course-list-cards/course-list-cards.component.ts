@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { CourseDialogComponent } from './../course-dialog/course-dialog.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { Course } from '../models/course';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-course-list-cards',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseListCardsComponent implements OnInit {
 
-  constructor() { }
+  @Input() courses: Course[];
+  bsModalRef: BsModalRef;
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit(): void {
+  }
+
+  openModalForEdit(course: Course): void{
+    console.log(course.description);
+    const initialState = {
+      course
+    };
+    this.bsModalRef = this.modalService.show(CourseDialogComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.event.subscribe(res => {
+      //this.courses.push(res.data);
+      console.log(res);
+   });
   }
 
 }
