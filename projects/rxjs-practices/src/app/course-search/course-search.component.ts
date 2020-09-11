@@ -34,7 +34,7 @@ export class CourseSearchComponent implements OnInit, AfterViewInit {
     // tslint:disable-next-line: no-string-literal
     const courseId = this.route.snapshot.params['id'];
     this.course$ = createHttpObservable(`/api/courses/${courseId}`);
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -51,9 +51,11 @@ export class CourseSearchComponent implements OnInit, AfterViewInit {
   }
 
   loadLessons(search = ''): Observable<Lesson[]> {
+    // tslint:disable-next-line: no-string-literal
     const courseId = this.route.snapshot.params['id'];
     return createHttpObservable(`/api/lessons?courseId=${courseId}&pageSize=100&filter=${search}`)
       .pipe(
+        // tslint:disable-next-line: no-string-literal
         map(res => Object.values(res['payload']))
       );
 

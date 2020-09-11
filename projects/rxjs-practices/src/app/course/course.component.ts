@@ -23,6 +23,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     const http$: Observable<Course[]> = createHttpObservable('/api/courses').pipe(
+        // tslint:disable-next-line: no-string-literal
         map(res => Object.values(res['payload'])),
         shareReplay<Course[]>()
       );
@@ -59,6 +60,6 @@ export class CourseComponent implements OnInit {
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnDestroy(): void{
-    
+
   }
 }
