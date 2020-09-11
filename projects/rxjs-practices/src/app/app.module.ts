@@ -12,6 +12,8 @@ import { CourseComponent } from './course/course.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CourseListCardsComponent } from './course-list-cards/course-list-cards.component';
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CourseSearchComponent } from './course-search/course-search.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,14 @@ import { CourseDialogComponent } from './course-dialog/course-dialog.component';
     CourseComponent,
     NavbarComponent,
     CourseListCardsComponent,
-    CourseDialogComponent
+    CourseDialogComponent,
+    CourseSearchComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     ModalModule.forRoot(),
     // CustomTabsModule,
     AppRoutingModule

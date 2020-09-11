@@ -10,7 +10,7 @@
 
             </div>
             <div class="card-footer text-muted text-center">
-                <a class="btn btn-sm btn-primary mr-3">View</a>
+                <a class="btn btn-sm btn-primary mr-3" [routerLink]="['/courses', course.id]">View</a>
                 <a class="btn btn-sm btn-secondary" (click)="openModalForEdit(course)">Edit</a>
             </div>
         </div>

@@ -56,4 +56,9 @@ export class CourseComponent implements OnInit {
   onSelect(value: number): void {
     this.tabpanel = value;
   }
+
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngOnDestroy(): void{
+    
+  }
 }
