@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { noop, Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { noop, Observable, of, throwError, timer } from 'rxjs';
+import { catchError, concat, delayWhen, finalize, map, retryWhen, shareReplay, take } from 'rxjs/operators';
 import { createHttpObservable } from '../util';
 import { Course } from '../models/course';
 
@@ -23,20 +23,31 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     const http$: Observable<Course[]> = createHttpObservable('/api/courses').pipe(
-        // tslint:disable-next-line: no-string-literal
-        map(res => Object.values(res['payload'])),
-        shareReplay<Course[]>()
-      );
+      catchError(err => {
+        console.log('Error Occured', err);
+        return throwError(err);
+      }),
+      finalize(() => {
+        console.log('Finalize Excuted');
+      }),
+      // catchError(err => of([]))
+      // tslint:disable-next-line: no-string-literal
+      map(res => Object.values(res['payload'])),
+      shareReplay<Course[]>(),
+      retryWhen(error => error.pipe(
+        delayWhen(() => timer(2000))
+      ))
+    );
     this.beginnerCourses$ = http$.pipe(
       map((courses: Course[]) => courses.filter((course: Course) => course.category === 'BEGINNER'))
     );
 
     this.intermediateCourses$ = http$.pipe(
-      map((courses: Course[]) => courses.filter((course: Course) => course.category ===  'INTERMEDIATE'))
+      map((courses: Course[]) => courses.filter((course: Course) => course.category === 'INTERMEDIATE'))
     );
 
     this.advanceCourses$ = http$.pipe(
-      map((courses: Course[]) => courses.filter((course: Course) => course.category ===  'ADVANCED'))
+      map((courses: Course[]) => courses.filter((course: Course) => course.category === 'ADVANCED'))
     );
 
     // const course$ = http$.pipe(
@@ -59,7 +70,7 @@ export class CourseComponent implements OnInit {
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
 
   }
 }

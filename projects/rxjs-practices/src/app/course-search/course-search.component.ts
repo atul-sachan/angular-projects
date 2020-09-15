@@ -16,6 +16,7 @@ import { merge, fromEvent, Observable, concat, pipe } from 'rxjs';
 import { Course } from '../models/course';
 import { Lesson } from '../models/lesson';
 import { createHttpObservable } from '../util';
+import { debug, RxJsLoggingLevel, setRxJsLoggingLevel } from '../debug';
 
 @Component({
   selector: 'app-course-search',
@@ -33,21 +34,35 @@ export class CourseSearchComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // tslint:disable-next-line: no-string-literal
     const courseId = this.route.snapshot.params['id'];
-    this.course$ = createHttpObservable(`/api/courses/${courseId}`);
-
+    this.course$ = createHttpObservable(`/api/courses/${courseId}`).pipe(
+      debug(RxJsLoggingLevel.INFO, 'course value '),
+    );
+    setRxJsLoggingLevel(RxJsLoggingLevel.TRACE);
   }
 
   ngAfterViewInit(): void {
-    const searchLesson$ = fromEvent(this.input.nativeElement, 'keyup')
+    // const searchLesson$ = fromEvent(this.input.nativeElement, 'keyup')
+    //   .pipe(
+    //     map((event: Event) => (event.target as HTMLInputElement).value),
+    //     debounceTime(500),
+    //     distinctUntilChanged(),
+    //     switchMap(search => this.loadLessons(search))
+    //   );
+
+    // const initialLesson$ = this.loadLessons();
+    // this.lessons$ = concat(initialLesson$, searchLesson$);
+
+    this.lessons$ = fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
         map((event: Event) => (event.target as HTMLInputElement).value),
+        startWith(''),
+        debug( RxJsLoggingLevel.TRACE, 'search '),
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(search => this.loadLessons(search))
+        switchMap(search => this.loadLessons(search)),
+        debug( RxJsLoggingLevel.DEBUG, 'lessons value ')
       );
 
-    const initialLesson$ = this.loadLessons();
-    this.lessons$ = concat(initialLesson$, searchLesson$);
   }
 
   loadLessons(search = ''): Observable<Lesson[]> {
