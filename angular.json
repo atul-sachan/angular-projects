@@ -163,6 +163,127 @@
           }
         }
       }
+    },
+    "restaurants-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/restaurants-app",
+      "sourceRoot": "projects/restaurants-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/restaurants-app",
+            "index": "projects/restaurants-app/src/index.html",
+            "main": "projects/restaurants-app/src/main.ts",
+            "polyfills": "projects/restaurants-app/src/polyfills.ts",
+            "tsConfig": "projects/restaurants-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/restaurants-app/src/favicon.ico",
+              "projects/restaurants-app/src/assets"
+            ],
+            "styles": [
+              "projects/restaurants-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/restaurants-app/src/environments/environment.ts",
+                  "with": "projects/restaurants-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "restaurants-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "restaurants-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "restaurants-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/restaurants-app/src/test.ts",
+            "polyfills": "projects/restaurants-app/src/polyfills.ts",
+            "tsConfig": "projects/restaurants-app/tsconfig.spec.json",
+            "karmaConfig": "projects/restaurants-app/karma.conf.js",
+            "assets": [
+              "projects/restaurants-app/src/favicon.ico",
+              "projects/restaurants-app/src/assets"
+            ],
+            "styles": [
+              "projects/restaurants-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/restaurants-app/tsconfig.app.json",
+              "projects/restaurants-app/tsconfig.spec.json",
+              "projects/restaurants-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/restaurants-app/e2e/protractor.conf.js",
+            "devServerTarget": "restaurants-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "restaurants-app:serve:production"
+            }
+          }
+        }
+      }
     }},
   "cli": {
     "analytics": false

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config ./proxy.json --port 4300 -o ",
+    "start-resto": "ng serve --port 4301 -o --project restaurants-app",
     "build": "ng build",
     "build-tab": "ng build custom-tabs",
     "test": "ng test",

@@ -25,7 +25,7 @@ export class CourseListCardsComponent implements OnInit {
     this.bsModalRef = this.modalService.show(CourseDialogComponent, {initialState});
     this.bsModalRef.content.closeBtnName = 'Close';
     this.bsModalRef.content.event.subscribe(res => {
-      //this.courses.push(res.data);
+      // this.courses.push(res.data);
       console.log(res);
    });
   }
