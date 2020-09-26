@@ -10,7 +10,6 @@ import { RecipeService } from '../recipe.service';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  // @Input()
   recipe: Recipe;
   id: number;
   show = false;
@@ -37,7 +36,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe(): void{
-
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']);
   }
 
 }

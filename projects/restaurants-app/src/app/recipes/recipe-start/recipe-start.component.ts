@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-start',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeStartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.router.data.subscribe(data => console.log(data));
   }
 
 }

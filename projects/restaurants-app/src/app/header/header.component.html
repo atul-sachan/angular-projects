@@ -8,6 +8,15 @@
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" routerLink="/recipe" routerLinkActive="active">Recipes</a></li>
                 <li class="nav-item"><a class="nav-link" [routerLink]="'/shopping-list'" routerLinkActive="active">Shopping List</a></li>
+                <li class="nav-item dropdown" appDropdown style="cursor: pointer;">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                      Manage
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save</a></li>
+                      <li><a class="dropdown-item" style="cursor: pointer;" (click)="onFetchData()">Fetch</a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="d-flex">
                 <div class="input-group">
